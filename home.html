@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<head>
+    <title>
+        <%title%>
+    </title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row ">
+
+            <div class='col-xs-12 col-md-9 col-lg-6'>
+                <select class="custom-select" onchange='getFiles(this);'>
+                    <%folders%>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+                <table class="table table-hover table-sm table-bordered">
+                    <thead>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Size</th>
+                    </thead>
+                    <tbody id='tbody'>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+                <form action="/" method="post" enctype="multipart/form-data" class="form-group">
+
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="fileToUpload" id="fileToUpload" required>
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Upload" name="submit" class="form-control btn btn-primary" />
+                    </div>
+                </form>
+
+                <br>
+                <hr>
+                <br>
+                <div>
+                    <a href="message" target='_blank'>Open in another page</a>
+                    <div id="messages">
+                        <%messages%>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id='msgBox' class="form-control" placeholder="Type your message here...">
+                        <input type="submit" onclick='sendMessage()' value="Send" name="submit" class="form-control btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

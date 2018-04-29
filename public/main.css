@@ -1,0 +1,21 @@
+a {
+    display: block;
+    text-decoration: none !important;
+}
+
+body {
+    margin: 10px;
+}
+
+#messages {
+    height: 45vh;
+    overflow: auto;
+    background-color: #eee;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px;
+}
+
+.nav-pills li {
+    cursor: pointer;
+}
