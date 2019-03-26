@@ -2,7 +2,7 @@ const fs = require('fs');
 var config = require('./config');
 
 function lstat(foldername, filename) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         fs.lstat(`${foldername}/${filename}`, (err, stat) => {
             if (err) {
                 reject(err);
@@ -22,7 +22,7 @@ function formatSize(fileSize) {
     } else if (fileSize > 1000) {
         return (fileSize / 1000).toPrecision(3) + " KB";
     } else {
-        return fileSize + " b"
+        return fileSize + " bytes"
     }
 }
 
@@ -38,8 +38,8 @@ function formatName(name) {
 }
 
 function getFolder(foldername) {
-    folder = config.folders.find(x => x == foldername || x.name == foldername);
-    if (!folder) return void 0;
+    let folder = config.folders.find(x => x == foldername || x.name == foldername);
+    if (!folder) return;
 
     if (typeof folder === 'string') {
         folder = {
@@ -66,5 +66,5 @@ module.exports = {
     formatName,
     getFolder,
     to64,
-    from64
+    from64,
 };

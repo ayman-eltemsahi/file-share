@@ -1,8 +1,8 @@
 
 function allowFirstNUsers(usersCount) {
-    var currentUsers = [];
+    let currentUsers = [];
 
-    return function (req, res, next) {
+    return (req, res, next) => {
         let ip = req.ip;
 
         // me
@@ -12,7 +12,7 @@ function allowFirstNUsers(usersCount) {
             return next();
         }
 
-        let ind = ip.indexOf(':1') + 1;
+        const ind = ip.indexOf(':1') + 1;
         ip = ip.substring(ind);
 
         console.log(`  ================={{  ${ip}  }}=================  `);

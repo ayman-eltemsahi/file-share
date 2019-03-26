@@ -1,5 +1,5 @@
 module.exports = {
-    portNumber: 80,
+    portNumber: 3344,
     publicFolder: './public',
     servedFolderPath: 'C:\\_\\server\\shared',
     uploadsFolder: 'uploads',

@@ -25,4 +25,4 @@ function initialize(app, server) {
 
 module.exports = {
     initialize
-}
+};

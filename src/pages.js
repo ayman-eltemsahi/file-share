@@ -7,14 +7,19 @@ const PUBLIC = 'public';
 const PRIVATE = 'private';
 
 function initialize(app) {
-    app.get('/', function (req, res) {
-        fs.readFile("./home.html", "utf8", (err, homePage) => onReadHomePage(err, homePage, req, res));
+    app.get('/', (req, res) => {
+        fs.promises.readFile('./home.html', 'utf8')
+            .then(homePage => onReadHomePage(homePage, req, res))
+            .catch(err => {
+                console.error(err);
+                res.stats(500).end();
+            })
     });
 
     app.get('/files/:foldername', onReadFolder);
 }
 
-function onReadHomePage(err, homePage, req, res) {
+function onReadHomePage(homePage, req, res) {
     let items = '';
 
     config.folders.forEach(folder => {
@@ -25,7 +30,7 @@ function onReadHomePage(err, homePage, req, res) {
             };
         }
 
-        if (folder.permission === PUBLIC || req.localhost) {
+        if (folder.permission === PUBLIC || req.host === 'localhost') {
             items += `<option value='${folder.name}'>${folder.name}</option>`;
         }
 
@@ -40,9 +45,9 @@ function onReadHomePage(err, homePage, req, res) {
 }
 
 function onReadFolder(req, res) {
-    let foldername = util.from64(req.params.foldername);
+    const foldername = util.from64(req.params.foldername);
 
-    let folder = util.getFolder(foldername);
+    const folder = util.getFolder(foldername);
 
     if (!folder) return res.status(404).end();
     if (folder.permission === PRIVATE && !req.localhost) return res.status(403).end();
@@ -51,11 +56,11 @@ function onReadFolder(req, res) {
 
         Promise
             .all(files.map(filename => util.lstat(folder.name, filename)))
-            .then(allstats => {
-                let folder64 = util.to64(folder.name);
+            .then(allStats => {
+                const folder64 = util.to64(folder.name);
 
                 let str = "";
-                allstats
+                allStats
                     .filter(stats => stats.isFile())
                     .sort((a, b) => b.mtime - a.mtime)
                     .forEach((item, i) => {

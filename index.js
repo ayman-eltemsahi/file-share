@@ -28,7 +28,7 @@ const application = require('./src/app');
 
 application.initialize(app, server);
 
-server.listen(config.portNumber, function () {
+server.listen(config.portNumber, () => {
     console.log(`Server listening ::: ${config.portNumber}`);
     console.log("ip = " + ip.address());
 
